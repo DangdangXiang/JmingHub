@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="club.jming.dao.ITeacherMapper">
+    <resultMap id="TeacherMap" type="Teacher">
+        <id property="id" column="t_id"/>
+        <result property="name" column="t_name"/>
+        <collection property="students" column="s_id" ofType="Student">
+            <id property="id" column="s_id"/>
+            <result property="name" column="s_name"/>
+            <association property="teacher" javaType="Teacher">
+                <id property="id" column="t_id"/>
+                <result property="name" column="t_name"/>
+            </association>
+        </collection>
+    </resultMap>
+
+    <resultMap id="TeacherMap1" type="Teacher">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+    </resultMap>
+
+    <select id="getTeachers" resultMap="TeacherMap">
+        select s.id s_id, s.name s_name, t.id t_id, t.name t_name
+        from `teacher` t
+                 left join `student` s on t.`id` = s.`teacher_id`;
+    </select>
+
+    <select id="getTeacher" resultMap="TeacherMap1" parameterType="map">
+        select * from teacher where id = #{id} and name = #{name}
+    </select>
+</mapper>

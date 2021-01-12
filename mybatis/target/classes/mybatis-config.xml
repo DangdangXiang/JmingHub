@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties resource="db.properties"/>
+
+    <settings>
+<!--        开启日志功能-->
+<!--        <setting name="logImpl" value="STDOUT_LOGGING"/>-->
+        <setting name="logImpl" value="LOG4J"/>
+<!--        开启二级缓存-->
+<!--        <setting name="cacheEnabled" value="true"/>-->
+    </settings>
+
+    <typeAliases>
+        <typeAlias type="club.jming.pojo.Teacher" alias="Teacher"/>
+        <typeAlias type="club.jming.pojo.Student" alias="Student"/>
+        <typeAlias type="club.jming.pojo.Blog" alias="Blog"/>
+    </typeAliases>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${mysql.driver}"/>
+                <property name="url" value="${mysql.url}"/>
+                <property name="username" value="${mysql.user}"/>
+                <property name="password" value="${mysql.pwd}"/>
+            </dataSource>
+        </environment>
+
+        <environment id="test">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${mysql.driver}"/>
+                <property name="url" value="${mysql.url}"/>
+                <property name="username" value="${mysql.user}"/>
+                <property name="password" value="${mysql.pwd}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="mappers/studentMapper.xml"/>
+        <mapper resource="mappers/teacherMapper.xml"/>
+        <mapper resource="mappers/blogMapper.xml"/>
+    </mappers>
+</configuration>
